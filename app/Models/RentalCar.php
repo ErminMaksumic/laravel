@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RentalCar extends Model
 {
     use HasFactory;
+
+    public mixed $name;
+    protected $fillable = ['name'];
 }
