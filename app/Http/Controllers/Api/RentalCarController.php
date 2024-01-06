@@ -48,7 +48,8 @@ class RentalCarController extends Controller
      */
     public function show(RentalCar $rentalCar)
     {
-        return $rentalCar;
+        // include user in the response
+        return $rentalCar->load("user");
     }
 
     /**
