@@ -11,8 +11,6 @@ class RentalCar extends Model
     use HasFactory;
 
     // attributes
-    public mixed $name;
-
     protected $fillable = ['name'];
 
     // relations
