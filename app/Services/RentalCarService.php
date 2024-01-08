@@ -22,12 +22,9 @@ class RentalCarService
         return $this->_rentalCarRepository->getAllRentalCars();
     }
 
-    public function addRentalCar(Request $request)
+    public function addRentalCar(RentalCarInsertRequest $request)
     {
-        $request = RentalCarInsertRequest::createFrom($request);
-        $rules = $request->rules();
         try {
-            $request->validate($rules);
             return $this->_rentalCarRepository->addRentalCar($request);
 
         } catch (ValidationException $e) {
@@ -44,9 +41,8 @@ class RentalCarService
         return $rentalCar->load("user");
     }
 
-    public function updateRentalCar(Request $request, RentalCar $rentalCar)
+    public function updateRentalCar(RentalCarInsertRequest $request, RentalCar $rentalCar)
     {
-        $request = RentalCarInsertRequest::createFrom($request);
         $rules = ['name' => 'sometimes|string'];
         try {
             $request->validate($rules);

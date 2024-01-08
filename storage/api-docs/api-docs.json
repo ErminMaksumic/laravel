@@ -1,0 +1,141 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Swagger",
+        "description": "Learning laravel",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/rentalCar": {
+            "get": {
+                "tags": [
+                    "Rental Cars"
+                ],
+                "summary": "Get all rental cars",
+                "operationId": "876196937c3b5d16a810eaa8f0fba2a0",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Rental Cars"
+                ],
+                "summary": "Create a new rental car",
+                "operationId": "fbf89d811c2f900091db79ac3861a92c",
+                "requestBody": {
+                    "description": "Rental Car data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the rental car",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/rentalCar/{id}": {
+            "get": {
+                "tags": [
+                    "Rental Cars"
+                ],
+                "summary": "Get a specific rental car by ID",
+                "operationId": "89839544b21447a30a35c7f829a51987",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the rental car",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Rental Cars"
+                ],
+                "summary": "Update a specific rental car by ID",
+                "operationId": "94992f9baad32219917d3f2439518725",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the rental car",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Updated Rental Car data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Updated name of the rental car",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Rental Cars"
+                ],
+                "summary": "Delete a specific rental car by ID",
+                "operationId": "6dd877bab73ee9d9cb029529a908e921",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the rental car",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    }
+}
