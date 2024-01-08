@@ -4,14 +4,22 @@ namespace App\Services;
 
 use App\Http\Requests\RentalCarInsertRequest;
 use App\Models\RentalCar;
+use App\Repositories\RentalCarRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class RentalCarService
 {
+    protected RentalCarRepository $_rentalCarRepository;
+
+    public function __construct(RentalCarRepository $rentalCarRepository)
+    {
+        $this->_rentalCarRepository = $rentalCarRepository;
+    }
+
     public function getAll()
     {
-        return RentalCar::all();
+        return $this->_rentalCarRepository->getAllRentalCars();
     }
 
     public function addRentalCar(Request $request)
@@ -20,11 +28,7 @@ class RentalCarService
         $rules = $request->rules();
         try {
             $request->validate($rules);
-            $car = RentalCar::create([
-                'name' => $request->name,
-                'user_id' => 2
-            ]);
-            $car->save();
+            return $this->_rentalCarRepository->addRentalCar($request);
 
         } catch (ValidationException $e) {
             $errors = $e->validator->errors();
@@ -33,8 +37,6 @@ class RentalCarService
             return response()->json([
                 'errors' => $errorArray,
             ], 422);        }
-
-        return $car;
     }
 
     public function getById(RentalCar $rentalCar)
@@ -48,9 +50,7 @@ class RentalCarService
         $rules = ['name' => 'sometimes|string'];
         try {
             $request->validate($rules);
-            $rentalCar->update([
-                'name' => $request->name ?? $rentalCar->name
-            ]);
+            $this->_rentalCarRepository->updateRentalCar($rentalCar, $request);
         }catch (ValidationException $e) {
             $errors = $e->validator->errors();
             $errorArray = $errors->toArray();
@@ -64,7 +64,7 @@ class RentalCarService
 
     public function removeRentalCar(RentalCar $rentalCar)
     {
-        $rentalCar->delete();
+        $this->_rentalCarRepository->deleteRentalCar($rentalCar);
         return response(content: "Car removed successfully", status: 204);
     }
 }
