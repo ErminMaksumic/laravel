@@ -6,8 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RentalCarInsertRequest extends FormRequest
 {
-    public mixed $name;
-
     /**
      * Determine if the user is authorized to make this request.
      */
