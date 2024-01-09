@@ -136,6 +136,20 @@
                     }
                 }
             }
+        },
+        "/api/rentalCar/prices": {
+            "get": {
+                "tags": [
+                    "Prices"
+                ],
+                "summary": "Get all prices",
+                "operationId": "cf86ea16faeb45215271d5fa4070a30c",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
         }
     }
 }

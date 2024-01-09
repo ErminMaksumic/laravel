@@ -17,7 +17,8 @@ class RentalCarFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->word(3)
+            'name' => fake()->word(3),
+            'price' => rand(100, 1000)
         ];
     }
 }

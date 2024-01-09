@@ -10,21 +10,10 @@ class RentalCar extends Model
 {
     use HasFactory;
 
-//    public string $name;
-//
-//    public int $userId;
-
     // attributes
-    protected $fillable = ['name', 'user_id'];
+    protected $fillable = ['name', 'user_id', 'price'];
 
-//    public function __construct(string $name, int $userId)
-//    {
-//
-////        $this->name = $name;
-////        $this->userId = $userId;
-//
-//        $this->attributes = ['name' => $this->name, 'user_id' => $this->userId];
-//    }
+
 
     // relations
     public function User() : BelongsTo

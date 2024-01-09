@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RentalCarInsertRequest;
+use App\Http\Resources\RentalCarResource;
 use App\Models\RentalCar;
 use App\Services\RentalCarService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RentalCarController extends Controller
 {
-    public RentalCarService $_rentalCarService;
-
 
     /**swagger specification*/
 
@@ -73,6 +72,15 @@ class RentalCarController extends Controller
      *          description="Successful operation",
      *      ),
      * )
+     * @OA\Get(
+     *       path="/api/rentalCar/prices",
+     *       summary="Get all prices",
+     *       tags={"Prices"},
+     *       @OA\Response(
+     *           response=200,
+     *           description="Successful operation",
+     *       ),
+     *  )
      * @OA\Put(
      *      path="/api/rentalCar/{id}",
      *      summary="Update a specific rental car by ID",
@@ -126,38 +134,38 @@ class RentalCarController extends Controller
      * )
      */
 
+    public function __construct(protected RentalCarService $rentalCarService)
+    { }
 
-    public function __construct(RentalCarService $rentalCarService)
+    public function index() : AnonymousResourceCollection
     {
-        $this->_rentalCarService = $rentalCarService;
+        return RentalCarResource::collection($this->rentalCarService->getAll());
     }
 
-    public function index() : \Illuminate\Database\Eloquent\Collection
+    public function store(RentalCarInsertRequest $request) : RentalCarResource
     {
-        return $this->_rentalCarService->getAll();
-    }
-
-    public function store(RentalCarInsertRequest $request) : RentalCar
-    {
-       return $this->_rentalCarService->addRentalCar($request);
+       return RentalCarResource::make($this->rentalCarService->addRentalCar($request));
    }
 
     public function show(RentalCar $rentalCar) : RentalCar
     {
-       return $this->_rentalCarService->getById($rentalCar);
+       return $this->rentalCarService->getById($rentalCar);
     }
 
     public function update(RentalCarInsertRequest $request, RentalCar $rentalCar) : JsonResponse | RentalCar
     {
-        return $this->_rentalCarService->updateRentalCar($request, $rentalCar);
+        return $this->rentalCarService->updateRentalCar($request, $rentalCar);
     }
-
 
     public function destroy(RentalCar $rentalCar)
     {
-        return $this->_rentalCarService->removeRentalCar($rentalCar);
+        return $this->rentalCarService->removeRentalCar($rentalCar);
     }
 
+    public function getAllPrices()
+    {
+        return new RentalCarResource([$this->rentalCarService->getAllPrices()]);
+    }
 
 }
 
