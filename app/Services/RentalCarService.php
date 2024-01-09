@@ -63,4 +63,9 @@ class RentalCarService
         $this->_rentalCarRepository->deleteRentalCar($rentalCar);
         return response(content: "Car removed successfully", status: 204);
     }
+
+    public function getAllPrices()
+    {
+        return $this->_rentalCarRepository->getAllPrices();
+    }
 }

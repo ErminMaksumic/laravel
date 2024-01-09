@@ -19,4 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('rentalCar/prices', [RentalCarController::class, 'getAllPrices']);
+
+// Resource route for RentalCarController
 Route::apiResource('rentalCar', RentalCarController::class);
