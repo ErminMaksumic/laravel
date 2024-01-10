@@ -135,7 +135,9 @@ class RentalCarController extends Controller
      */
 
     public function __construct(protected RentalCarService $rentalCarService)
-    { }
+    {
+        $this->middleware('auth:sanctum')->except(['index', 'show']);
+    }
 
     public function index() : AnonymousResourceCollection
     {
@@ -147,14 +149,14 @@ class RentalCarController extends Controller
        return RentalCarResource::make($this->rentalCarService->addRentalCar($request));
    }
 
-    public function show(RentalCar $rentalCar) : RentalCar
+    public function show(RentalCar $rentalCar) : RentalCarResource
     {
-       return $this->rentalCarService->getById($rentalCar);
+       return RentalCarResource::make($this->rentalCarService->getById($rentalCar));
     }
 
-    public function update(RentalCarInsertRequest $request, RentalCar $rentalCar) : JsonResponse | RentalCar
+    public function update(RentalCarInsertRequest $request, RentalCar $rentalCar) : JsonResponse | RentalCar | RentalCarResource
     {
-        return $this->rentalCarService->updateRentalCar($request, $rentalCar);
+        return RentalCarResource::make($this->rentalCarService->updateRentalCar($request, $rentalCar));
     }
 
     public function destroy(RentalCar $rentalCar)
@@ -162,10 +164,9 @@ class RentalCarController extends Controller
         return $this->rentalCarService->removeRentalCar($rentalCar);
     }
 
-    public function getAllPrices()
+    public function getAllPrices() : RentalCarResource
     {
         return new RentalCarResource([$this->rentalCarService->getAllPrices()]);
     }
-
 }
 
