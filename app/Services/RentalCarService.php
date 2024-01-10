@@ -36,17 +36,17 @@ class RentalCarService
             ], 422);        }
     }
 
-    public function getById(RentalCar $rentalCar)
+    public function getById(int $id)
     {
-        return $rentalCar->load("user");
+        return $this->_rentalCarRepository->getById($id);
     }
 
-    public function updateRentalCar(RentalCarInsertRequest $request, RentalCar $rentalCar)
+    public function updateRentalCar(RentalCarInsertRequest $request, int $id)
     {
         $rules = ['name' => 'sometimes|string'];
         try {
             $request->validate($rules);
-            $this->_rentalCarRepository->updateRentalCar($rentalCar, $request);
+            $updatedRentalCar = $this->_rentalCarRepository->updateRentalCar($id, $request);
         }catch (ValidationException $e) {
             $errors = $e->validator->errors();
             $errorArray = $errors->toArray();
@@ -55,7 +55,7 @@ class RentalCarService
                 'errors' => $errorArray,
             ], 422);        }
 
-        return $rentalCar;
+        return $updatedRentalCar;
     }
 
     public function removeRentalCar(RentalCar $rentalCar)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,7 @@ class RentalCarResource extends JsonResource
            'id' => $this->id,
            'name' => $this->name,
            'price' => $this->price,
-           'user' => $this->user->name,
+           'user' => new UserResource($this->whenLoaded('user')),
        ];
     }
 }
