@@ -10,6 +10,7 @@ use App\Models\RentalCar;
 use App\Services\RentalCarService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class RentalCarController extends Controller
 {

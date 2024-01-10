@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Http\Requests\RentalCarInsertRequest;
 use App\Http\Resources\RentalCarResource;
+use App\Http\Traits\CanLoadRelationships;
 use App\Models\RentalCar;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -13,9 +14,19 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RentalCarRepository
 {
+    use CanLoadRelationships;
+
+    private array $relations = ['user'];
+
     public function getAllRentalCars() : LengthAwarePaginator
     {
-        return RentalCar::with('user')->paginate();
+        $query = $this->loadRelationships(RentalCar::query(), $this->relations);
+
+        $query->when(request('search'), function ($query) {
+            $query->where('name', 'like', '%' . request('search') . '%');
+        });
+
+        return $query->paginate();
     }
 
     public function addRentalCar(RentalCarInsertRequest $request) : RentalCar
