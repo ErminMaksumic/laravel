@@ -13,8 +13,6 @@ class RentalCar extends Model
     // attributes
     protected $fillable = ['name', 'user_id', 'price'];
 
-
-
     // relations
     public function User() : BelongsTo
     {

@@ -22,7 +22,7 @@ class RentalCarRepository
         return RentalCar::create([
             'name' => $request->name,
             'user_id' => 2,
-            'price' => 563
+            'price' => $request->price
         ]);
     }
 
@@ -30,7 +30,7 @@ class RentalCarRepository
     {
         $rentalCar->update([
             'name' => $request->name ?? $rentalCar->name,
-            'price' => 563
+            'price' => $request->price
         ]);
     }
 
