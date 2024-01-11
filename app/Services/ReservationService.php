@@ -2,13 +2,8 @@
 
 namespace App\Services;
 
-use App\Http\Requests\RentalCarInsertRequest;
 use App\Http\Requests\ReservationInsertRequest;
-use App\Models\RentalCar;
-use App\Models\Reservation;
-use App\Repositories\RentalCarRepository;
 use App\Repositories\ReservationRepository;
-use http\Client\Request;
 use Illuminate\Validation\ValidationException;
 
 class ReservationService

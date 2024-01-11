@@ -11,12 +11,6 @@ class Reservation extends Model
 {
     use HasFactory;
 
-    protected int $id;
-
-    protected DateTime $from;
-
-    protected DateTime $to;
-
     protected $fillable = ['user_id', 'rental_car_id', 'from', 'to'];
 
     // relations
