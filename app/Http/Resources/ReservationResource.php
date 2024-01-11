@@ -19,7 +19,8 @@ class ReservationResource extends JsonResource
             'user_id' => $this->user_id,
             'from' => $this->from,
             'to' => $this->to,
-            'user' => new UserResource($this->whenLoaded('user'))
+            'user' => new UserResource($this->whenLoaded('user')),
+            'rentalCar' => new RentalCarResource($this->whenLoaded('rentalCar')),
         ];
     }
 }

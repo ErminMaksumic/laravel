@@ -6,7 +6,7 @@ use App\Models\Reservation;
 
 class ReservationRepository extends BaseRepository
 {
-    protected array $relations = ['user', 'rentalCar'];
+    protected array $relations = ['rentalCar', 'user'];
 
     protected function getModelClass(): string
     {
