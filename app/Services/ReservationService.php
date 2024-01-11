@@ -3,19 +3,18 @@
 namespace App\Services;
 
 use App\Http\Requests\RentalCarInsertRequest;
+use App\Http\Requests\ReservationInsertRequest;
 use App\Models\RentalCar;
+use App\Models\Reservation;
 use App\Repositories\RentalCarRepository;
-use Illuminate\Http\Request;
+use App\Repositories\ReservationRepository;
+use http\Client\Request;
 use Illuminate\Validation\ValidationException;
 
-class RentalCarService
+class ReservationService
 {
-    protected RentalCarRepository $_rentalCarRepository;
-
-    public function __construct(RentalCarRepository $rentalCarRepository)
-    {
-        $this->_rentalCarRepository = $rentalCarRepository;
-    }
+    public function __construct(protected ReservationRepository $reservationRepository)
+    { }
 
     public function getAll()
     {
@@ -23,13 +22,13 @@ class RentalCarService
             'name' => request('search'),
         ];
 
-        return $this->_rentalCarRepository->getAll($searchParams);
+        return $this->reservationRepository->getAll($searchParams);
     }
 
-    public function addRentalCar(RentalCarInsertRequest $request)
+    public function addRentalCar(ReservationInsertRequest $request)
     {
         try {
-            return $this->_rentalCarRepository->add($request);
+            return $this->reservationRepository->add($request);
 
         } catch (ValidationException $e) {
             $errors = $e->validator->errors();
@@ -42,15 +41,15 @@ class RentalCarService
 
     public function getById(int $id)
     {
-        return $this->_rentalCarRepository->getById($id);
+        return $this->reservationRepository->getById($id);
     }
 
-    public function updateRentalCar(RentalCarInsertRequest $request, int $id)
+    public function updateReservation(ReservationInsertRequest $request, int $id)
     {
         $rules = ['name' => 'sometimes|string'];
         try {
             $request->validate($rules);
-            $updatedRentalCar = $this->_rentalCarRepository->update($id, $request);
+            $updatedReservation = $this->reservationRepository->update($id, $request);
         }catch (ValidationException $e) {
             $errors = $e->validator->errors();
             $errorArray = $errors->toArray();
@@ -59,17 +58,12 @@ class RentalCarService
                 'errors' => $errorArray,
             ], 422);        }
 
-        return $updatedRentalCar;
+        return $updatedReservation;
     }
 
-    public function removeRentalCar(RentalCar $rentalCar)
+    public function removeReservation(Reservation $rentalCar)
     {
-        $this->_rentalCarRepository->delete($rentalCar);
+        $this->reservationRepository->delete($rentalCar);
         return response(content: "Car removed successfully", status: 204);
-    }
-
-    public function getAllPrices()
-    {
-        return $this->_rentalCarRepository->getAllPrices();
     }
 }

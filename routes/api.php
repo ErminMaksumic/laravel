@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\RentalCarController;
+use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,5 +27,6 @@ Route::get('rentalCar/prices', [RentalCarController::class, 'getAllPrices']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware("auth:sanctum");
 
-// Resource route for RentalCarController
+// Resource route
 Route::apiResource('rentalCar', RentalCarController::class);
+Route::apiResource('reservation', ReservationController::class);

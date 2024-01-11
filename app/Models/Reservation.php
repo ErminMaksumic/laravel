@@ -17,6 +17,8 @@ class Reservation extends Model
 
     protected DateTime $to;
 
+    protected $fillable = ['user_id', 'rental_car_id', 'from', 'to'];
+
     // relations
     public function user() : BelongsTo
     {
