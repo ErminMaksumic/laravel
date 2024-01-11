@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RentalCarInsertRequest;
 use App\Http\Resources\RentalCarResource;
-use App\Http\Traits\CanLoadRelationships;
 use App\Models\RentalCar;
 use App\Services\RentalCarService;
+use App\Traits\CanLoadRelationships;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 

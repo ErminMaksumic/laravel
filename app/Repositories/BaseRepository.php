@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Http\Traits\CanLoadRelationships;
+use App\Traits\CanLoadRelationships;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
