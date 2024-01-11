@@ -12,7 +12,7 @@
                     "Rental Cars"
                 ],
                 "summary": "Get all rental cars",
-                "operationId": "876196937c3b5d16a810eaa8f0fba2a0",
+                "operationId": "1d5de7ab0b19d82eb1a4adc95b6077b2",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -24,7 +24,7 @@
                     "Rental Cars"
                 ],
                 "summary": "Create a new rental car",
-                "operationId": "fbf89d811c2f900091db79ac3861a92c",
+                "operationId": "b16a0528d53d483771f847a07bcbbc05",
                 "requestBody": {
                     "description": "Rental Car data",
                     "required": true,
@@ -55,7 +55,7 @@
                     "Rental Cars"
                 ],
                 "summary": "Get a specific rental car by ID",
-                "operationId": "89839544b21447a30a35c7f829a51987",
+                "operationId": "cbed686f010d2f7ff566d222ff1cd1af",
                 "parameters": [
                     {
                         "name": "id",
@@ -78,7 +78,7 @@
                     "Rental Cars"
                 ],
                 "summary": "Update a specific rental car by ID",
-                "operationId": "94992f9baad32219917d3f2439518725",
+                "operationId": "736cb9af614bd82c8e080fc8d6a60b56",
                 "parameters": [
                     {
                         "name": "id",
@@ -118,7 +118,7 @@
                     "Rental Cars"
                 ],
                 "summary": "Delete a specific rental car by ID",
-                "operationId": "6dd877bab73ee9d9cb029529a908e921",
+                "operationId": "3678c0f031a2f785e51406a049a268be",
                 "parameters": [
                     {
                         "name": "id",
@@ -143,7 +143,7 @@
                     "Prices"
                 ],
                 "summary": "Get all prices",
-                "operationId": "cf86ea16faeb45215271d5fa4070a30c",
+                "operationId": "be2b29256c510330b9e0c1f1074a1e4f",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
