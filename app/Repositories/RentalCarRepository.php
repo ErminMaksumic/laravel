@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Http\Requests\RentalCarInsertRequest;
 use App\Models\RentalCar;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,12 +14,12 @@ class RentalCarRepository extends BaseRepository
         return RentalCar::query()->sum('price');
     }
 
-    public function add($request): Model
+    public function add($data): Model
     {
         return RentalCar::create([
-            'name' => $request->name,
+            'name' => $data->name,
             'user_id' => 2,
-            'price' => $request->price
+            'price' => $data->price
         ]);
     }
 

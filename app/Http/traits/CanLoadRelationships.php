@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Traits;
+namespace App\Http\traits;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
