@@ -22,8 +22,8 @@ class ReservationInsertRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|int',
-            'rental_car_id' => 'required|int',
+            'user_id' => 'int',
+            'rental_car_id' => 'int',
             'from' => 'required|date',
             'to' => 'required|date'
         ];

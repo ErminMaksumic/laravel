@@ -150,6 +150,161 @@
                     }
                 }
             }
+        },
+        "/api/reservation": {
+            "get": {
+                "tags": [
+                    "Reservations"
+                ],
+                "summary": "Get all reservations",
+                "operationId": "09eabf475c140c4ad25f153cfd185565",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Reservations"
+                ],
+                "summary": "Post a specific reservation by ID",
+                "operationId": "fdc91b5a3d66f77827764972fa81a6aa",
+                "requestBody": {
+                    "description": "Create Rental Car",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "from": {
+                                        "description": "From date",
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "default": "2022-11-02 19:24:49"
+                                    },
+                                    "user_id": {
+                                        "description": "User ID",
+                                        "type": "integer"
+                                    },
+                                    "rental_car_id": {
+                                        "description": "Rental Car ID",
+                                        "type": "integer"
+                                    },
+                                    "to": {
+                                        "description": "To date",
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "default": "2025-11-02 19:24:49"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/reservation/{id}": {
+            "get": {
+                "tags": [
+                    "Reservations"
+                ],
+                "summary": "Get a specific reservations by ID",
+                "operationId": "6f261f3b4a73e73d7328799a9bbb5362",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the reservation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Reservations"
+                ],
+                "summary": "Update a specific reservation by ID",
+                "operationId": "6204b43bc323725f1361dfc4d52da8f5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the reservation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Updated Rental Car data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "from": {
+                                        "description": "From date",
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "default": "2022-11-02 19:24:49"
+                                    },
+                                    "to": {
+                                        "description": "To date",
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "default": "2025-11-02 19:24:49"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Reservations"
+                ],
+                "summary": "Delete a specific reservation by ID",
+                "operationId": "0b95985488eeb9eb820aff1cff25a69c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the reservation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
         }
     }
 }

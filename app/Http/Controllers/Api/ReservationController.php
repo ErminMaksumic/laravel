@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationInsertRequest;
+use App\Http\Resources\ReservationResource;
 use App\Models\Reservation;
 use App\Services\ReservationService;
 
@@ -16,7 +17,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-       return $this->reservationService->getAll();
+       return ReservationResource::collection($this->reservationService->getAll());
     }
 
     /**
@@ -24,7 +25,7 @@ class ReservationController extends Controller
      */
     public function store(ReservationInsertRequest $request)
     {
-        return $this->reservationService->addRentalCar($request);
+        return ReservationResource::make($this->reservationService->addRentalCar($request));
     }
 
     /**
@@ -32,7 +33,7 @@ class ReservationController extends Controller
      */
     public function show(int $id)
     {
-        return $this->reservationService->getById($id);
+        return ReservationResource::make($this->reservationService->getById($id));
     }
 
     /**
@@ -40,7 +41,7 @@ class ReservationController extends Controller
      */
     public function update(ReservationInsertRequest $request, int $id)
     {
-        $this->reservationService->updateReservation($request, $id);
+        return ReservationResource::make($this->reservationService->updateReservation($request, $id));
     }
 
     /**

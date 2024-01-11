@@ -29,11 +29,10 @@ abstract class BaseRepository
 
     public function add($data): Model
     {
-//        dd($data);
         return $this->getModelInstance()->create($data);
     }
 
-    public function update(int $id, array $data): Model
+    public function update(int $id, $data): Model
     {
         $model = $this->getModelInstance()->find($id);
 
@@ -41,7 +40,7 @@ abstract class BaseRepository
             abort(404, 'Resource not found');
         }
 
-        $model->update($data);
+        $model->update([$data]);
 
         return $model;
     }
