@@ -17,16 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('rentalCar/prices', [RentalCarController::class, 'getAllPrices']);
-
 // auth
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware("auth:sanctum");
 
 // Resource route
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) { return $request->user(); });
+Route::get('rentalCar/prices', [RentalCarController::class, 'getAllPrices']);
 Route::apiResource('rentalCar', RentalCarController::class);
 Route::apiResource('reservation', ReservationController::class);
