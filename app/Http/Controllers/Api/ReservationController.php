@@ -47,8 +47,8 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reservation $reservation)
+    public function destroy(int $id)
     {
-        $this->reservationService->removeReservation($reservation);
+        $this->reservationService->removeReservation($id);
     }
 }

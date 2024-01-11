@@ -45,14 +45,14 @@ class RentalCarController extends Controller
         return RentalCarResource::make($this->rentalCarService->updateRentalCar($request, $id));
     }
 
-    public function destroy(RentalCar $rentalCar)
+    public function destroy(int $id)
     {
-        return $this->rentalCarService->removeRentalCar($rentalCar);
+        return $this->rentalCarService->removeRentalCar($id);
     }
 
-    public function getAllPrices() : RentalCarResource
+    public function getAllPrices() : int
     {
-        return new RentalCarResource([$this->rentalCarService->getAllPrices()]);
+        return $this->rentalCarService->getAllPrices();
     }
 }
 

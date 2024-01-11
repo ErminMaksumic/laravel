@@ -45,14 +45,28 @@ abstract class BaseRepository
         return $model;
     }
 
-    public function delete(Model $model)
+    public function delete(int $id)
     {
+        $model = $this->getModelInstance()->find($id);
+
+        if(!$model)
+        {
+            abort(404, "Resource not found");
+        }
+
         $model->delete();
     }
 
     public function getById(int $id): Model
     {
-        return $this->getModelInstance()->find($id);
+        $result = $this->getModelInstance()->find($id);
+
+        if(!$result)
+        {
+            abort(404, "Resource not found");
+        }
+
+        return $result;
     }
 
     protected function getModelInstance(): Model

@@ -61,9 +61,9 @@ class ReservationService
         return $updatedReservation;
     }
 
-    public function removeReservation(Reservation $rentalCar)
+    public function removeReservation(int $id)
     {
-        $this->reservationRepository->delete($rentalCar);
+        $this->reservationRepository->delete($id);
         return response(content: "Car removed successfully", status: 204);
     }
 }

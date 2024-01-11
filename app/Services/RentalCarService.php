@@ -62,9 +62,9 @@ class RentalCarService
         return $updatedRentalCar;
     }
 
-    public function removeRentalCar(RentalCar $rentalCar)
+    public function removeRentalCar(int $id)
     {
-        $this->_rentalCarRepository->delete($rentalCar);
+        $this->_rentalCarRepository->delete($id);
         return response(content: "Car removed successfully", status: 204);
     }
 
