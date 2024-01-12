@@ -18,7 +18,7 @@ class RentalCarRepository extends BaseRepository
     {
         return RentalCar::create([
             'name' => $data->name,
-            'user_id' => 2,
+            'user_id' => $data->user_id,
             'price' => $data->price
         ]);
     }

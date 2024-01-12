@@ -10,12 +10,9 @@ use Illuminate\Validation\ValidationException;
 
 class RentalCarService
 {
-    protected RentalCarRepository $_rentalCarRepository;
 
-    public function __construct(RentalCarRepository $rentalCarRepository)
-    {
-        $this->_rentalCarRepository = $rentalCarRepository;
-    }
+    public function __construct(protected RentalCarRepository $rentalCarRepository)
+    { }
 
     public function getAll()
     {
@@ -23,13 +20,13 @@ class RentalCarService
             'name' => request('search'),
         ];
 
-        return $this->_rentalCarRepository->getAll($searchParams);
+        return $this->rentalCarRepository->getAll($searchParams);
     }
 
     public function addRentalCar(RentalCarInsertRequest $request)
     {
         try {
-            return $this->_rentalCarRepository->add($request);
+            return $this->rentalCarRepository->add($request);
 
         } catch (ValidationException $e) {
             $errors = $e->validator->errors();
@@ -42,7 +39,7 @@ class RentalCarService
 
     public function getById(int $id)
     {
-        return $this->_rentalCarRepository->getById($id);
+        return $this->rentalCarRepository->getById($id);
     }
 
     public function updateRentalCar(RentalCarInsertRequest $request, int $id)
@@ -50,7 +47,7 @@ class RentalCarService
         $rules = ['name' => 'sometimes|string'];
         try {
             $request->validate($rules);
-            $updatedRentalCar = $this->_rentalCarRepository->update($id, $request);
+            $updatedRentalCar = $this->rentalCarRepository->update($id, $request);
         }catch (ValidationException $e) {
             $errors = $e->validator->errors();
             $errorArray = $errors->toArray();
@@ -64,12 +61,12 @@ class RentalCarService
 
     public function removeRentalCar(int $id)
     {
-        $this->_rentalCarRepository->delete($id);
+        $this->rentalCarRepository->delete($id);
         return response(content: "Car removed successfully", status: 204);
     }
 
     public function getAllPrices()
     {
-        return $this->_rentalCarRepository->getAllPrices();
+        return $this->rentalCarRepository->getAllPrices();
     }
 }
