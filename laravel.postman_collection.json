@@ -132,7 +132,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"BMW\",\r\n    \"price\": 123\r\n}",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"price\": 123,\r\n    \"user_id\":5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -226,9 +226,6 @@
 				},
 				{
 					"name": "UpdateRentalCar",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -240,7 +237,7 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Accept",
@@ -255,7 +252,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Testing\",\r\n    \"price\": 1234\r\n}",
+							"raw": "{\r\n    \"name\": \"Testing12345\",\r\n    \"price\": 1234\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
