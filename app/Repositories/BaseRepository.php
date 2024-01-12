@@ -2,11 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Interfaces\BaseRepositoryInterface;
 use App\Traits\CanLoadRelationships;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-abstract class BaseRepository
+abstract class BaseRepository implements BaseRepositoryInterface
 {
     use CanLoadRelationships;
 

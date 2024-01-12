@@ -3,12 +3,12 @@
 namespace App\Services;
 
 use App\Http\Requests\ReservationInsertRequest;
-use App\Repositories\ReservationRepository;
+use App\Repositories\Interfaces\ReservationRepositoryInterface;
 use Illuminate\Validation\ValidationException;
 
 class ReservationService
 {
-    public function __construct(protected ReservationRepository $reservationRepository)
+    public function __construct(private ReservationRepositoryInterface $reservationRepository)
     { }
 
     public function getAll()

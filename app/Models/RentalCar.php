@@ -14,7 +14,7 @@ class RentalCar extends Model
     protected $fillable = ['name', 'user_id', 'price'];
 
     // relations
-    public function User() : BelongsTo
+    public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
     }

@@ -3,15 +3,19 @@
 namespace App\Repositories;
 
 use App\Models\RentalCar;
+use App\Models\User;
+use App\Repositories\Interfaces\RentalCarRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class RentalCarRepository extends BaseRepository
+class RentalCarRepository extends BaseRepository implements RentalCarRepositoryInterface
 {
     protected array $relations = ['user'];
 
     public function getAllPrices(): int
     {
-        return RentalCar::query()->sum('price');
+        $user = User::with('RentalCars')->find(1);
+        return $user->rentalCars->sum('price');
+
     }
 
     public function add($data): Model
@@ -44,5 +48,4 @@ class RentalCarRepository extends BaseRepository
     {
         return RentalCar::class;
     }
-
 }

@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     // relations
 
-    public function RentalCars() : HasMany
+    public function rentalCars() : HasMany
     {
         return $this->hasMany(RentalCar::class);
     }

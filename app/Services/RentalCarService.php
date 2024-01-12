@@ -3,15 +3,12 @@
 namespace App\Services;
 
 use App\Http\Requests\RentalCarInsertRequest;
-use App\Models\RentalCar;
-use App\Repositories\RentalCarRepository;
-use Illuminate\Http\Request;
+use App\Repositories\Interfaces\RentalCarRepositoryInterface;
 use Illuminate\Validation\ValidationException;
 
 class RentalCarService
 {
-
-    public function __construct(protected RentalCarRepository $rentalCarRepository)
+    public function __construct(private RentalCarRepositoryInterface $rentalCarRepository)
     { }
 
     public function getAll()
