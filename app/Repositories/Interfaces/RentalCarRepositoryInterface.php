@@ -2,4 +2,5 @@
 
 namespace App\Repositories\Interfaces;
 
-interface RentalCarRepositoryInterface extends BaseRepositoryInterface  { }
+interface RentalCarRepositoryInterface extends BaseRepositoryInterface
+{ }

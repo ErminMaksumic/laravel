@@ -26,7 +26,8 @@ class RentalCarController extends Controller
         $this->middleware('auth:sanctum')->except(['index', 'show']);
     }
 
-    public function index(): AnonymousResourceCollection {
+    public function index(): AnonymousResourceCollection
+    {
         return RentalCarResource::collection($this->rentalCarService->getAll());
     }
 
