@@ -17,10 +17,10 @@ class ReservationRepository extends BaseRepository implements ReservationReposit
     public function add($data): \Illuminate\Database\Eloquent\Model
     {
         return Reservation::create([
-            'user_id' => $data->user_id,
-            'rental_car_id' => $data->rental_car_id,
-            'from' => $data->from,
-            'to' => $data->to
+            'user_id' => $data['user_id'],
+            'rental_car_id' => $data['rental_car_id'],
+            'from' => $data['from'],
+            'to' => $data['to']
         ]);
     }
 
@@ -34,8 +34,8 @@ class ReservationRepository extends BaseRepository implements ReservationReposit
         }
 
         $reservation->update([
-            'from' => $data->from,
-            'to' => $data->to
+            'from' => $data['from'],
+            'to' => $data['to']
         ]);
 
         return $reservation;

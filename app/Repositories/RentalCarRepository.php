@@ -21,9 +21,9 @@ class RentalCarRepository extends BaseRepository implements RentalCarRepositoryI
     public function add($data): Model
     {
         return RentalCar::create([
-            'name' => $data->name,
-            'user_id' => $data->user_id,
-            'price' => $data->price
+            'name' => $data['name'],
+            'user_id' => $data['user_id'],
+            'price' => $data['price']
         ]);
     }
 
@@ -37,8 +37,8 @@ class RentalCarRepository extends BaseRepository implements RentalCarRepositoryI
         }
 
         $rentalCar->update([
-            'name' => $data->name,
-            'price' => $data->price
+            'name' => $data['name'],
+            'price' => $data['price']
         ]);
 
         return $rentalCar;
