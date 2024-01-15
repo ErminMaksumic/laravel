@@ -24,12 +24,8 @@ abstract class BaseService implements BaseServiceInterface
     }
 
 
-    public function getAll()
+    public function getAll(array $searchParams)
     {
-        $searchParams = [
-            'name' => request('search'),
-        ];
-
         return $this->getRepository()->getAll($searchParams);
     }
 

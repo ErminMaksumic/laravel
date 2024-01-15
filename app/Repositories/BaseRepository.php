@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Repositories\Interfaces\BaseRepositoryInterface;
 use App\Traits\CanLoadRelationships;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 abstract class BaseRepository implements BaseRepositoryInterface
@@ -17,15 +18,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function getAll(array $searchParams = []): LengthAwarePaginator
     {
+        $requestParams = request()->all();
+        $filteredSearchParams = array_intersect_key($requestParams, array_flip($searchParams));
         $query = $this->loadRelationships($this->getModelInstance()->query(), $this->relations);
+        return $this->filterQuery($filteredSearchParams, $query)->paginate();
 
-        foreach ($searchParams as $key => $value) {
-            if ($value !== null) {
-                $query->where($key, 'like', '%' . $value . '%');
-            }
-        }
-
-        return $query->paginate();
     }
 
     public function add($data): Model
@@ -75,5 +72,16 @@ abstract class BaseRepository implements BaseRepositoryInterface
         $modelClass = $this->getModelClass();
 
         return new $modelClass;
+    }
+
+    protected function filterQuery(array $filteredSearchParams, $query) :  Builder
+    {
+        foreach ($filteredSearchParams as $key => $value) {
+            if ($value !== null) {
+                $query->where($key, 'like', '%' . $value . '%');
+            }
+        }
+
+        return $query;
     }
 }

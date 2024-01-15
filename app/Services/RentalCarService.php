@@ -7,6 +7,8 @@ use App\Services\Interfaces\RentalCarServiceInterface;
 
 class RentalCarService extends BaseService implements RentalCarServiceInterface
 {
+    private array $availableSearchParams = ['name', 'price'];
+
     public function getRepository()
     {
         return app(RentalCarRepository::class);
@@ -15,5 +17,10 @@ class RentalCarService extends BaseService implements RentalCarServiceInterface
     public function getAllPrices()
     {
         return $this->getRepository()->getAllPrices();
+    }
+
+    public function getAllSearch()
+    {
+        return parent::getAll($this->availableSearchParams);
     }
 }

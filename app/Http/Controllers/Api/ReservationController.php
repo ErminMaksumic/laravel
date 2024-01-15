@@ -19,7 +19,7 @@ class ReservationController extends Controller
 
     public function index()
     {
-        return ReservationResource::collection($this->reservationService->getAll());
+        return ReservationResource::collection($this->reservationService->getAllSearch());
     }
 
     public function store(Request $request)

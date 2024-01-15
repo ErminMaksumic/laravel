@@ -27,7 +27,7 @@ class RentalCarController extends Controller
 
     public function index(): AnonymousResourceCollection
     {
-        return RentalCarResource::collection($this->rentalCarService->getAll());
+        return RentalCarResource::collection($this->rentalCarService->getAllSearch());
     }
 
     public function store(Request $request): RentalCarResource|JsonResponse
