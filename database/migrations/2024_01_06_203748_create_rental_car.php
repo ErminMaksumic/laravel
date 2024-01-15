@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('rental_cars', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->double("price");
             $table->foreignIdFor(User::class);
             $table->timestamps();
         });
