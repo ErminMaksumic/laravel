@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Validation\ValidationException;
 
 /**swagger specification*/
 
@@ -259,21 +257,4 @@ use Illuminate\Validation\ValidationException;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
-
-    protected function validateRequest(Request $request, $formRequest)
-    {
-        try {
-            $formRequestInstance = new $formRequest();
-            $validatedData = $this->validate($request, $formRequestInstance->rules());
-
-            return $validatedData;
-        } catch (ValidationException $e) {
-            $errors = $e->validator->errors();
-            $errorArray = $errors->toArray();
-
-            return response()->json([
-                'errors' => $errorArray,
-            ], 422);
-        }
-    }
 }

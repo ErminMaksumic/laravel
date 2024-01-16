@@ -15,7 +15,6 @@ class RentalCarRepository extends BaseRepository implements RentalCarRepositoryI
     {
         $user = User::with('RentalCars')->find(1);
         return $user->rentalCars->sum('price');
-
     }
 
     public function add($data): Model
