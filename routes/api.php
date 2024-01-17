@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\RentalCarController;
 use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\AuthController;
@@ -26,3 +27,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) { re
 Route::get('rentalCar/prices', [RentalCarController::class, 'getAllPrices']);
 Route::apiResource('rentalCar', RentalCarController::class);
 Route::apiResource('reservation', ReservationController::class);
+Route::apiResource('payment', PaymentController::class);

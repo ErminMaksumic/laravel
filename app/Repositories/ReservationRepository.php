@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\ReservationRepositoryInterface;
 
 class ReservationRepository extends BaseRepository implements ReservationRepositoryInterface
 {
-    protected array $relations = ['rentalCar', 'user'];
+    protected array $relations = ['rentalCar', 'user', 'payment'];
 
     protected function getModelClass(): string
     {

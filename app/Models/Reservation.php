@@ -23,6 +23,11 @@ class Reservation extends Model
     {
         return $this->belongsTo(RentalCar::class);
     }
+
+    public function payment() : BelongsTo
+    {
+        return $this->belongsTo(Payment::class);
+    }
 }
 
 
