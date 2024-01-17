@@ -25,7 +25,7 @@ class ReservationInsertRequest extends FormRequest
             'user_id' => 'required|int',
             'rental_car_id' => 'required|int',
             'from' => 'required|date',
-            'to' => 'required|date'
+            'to' => 'required|date|after:from'
         ];
     }
 }
