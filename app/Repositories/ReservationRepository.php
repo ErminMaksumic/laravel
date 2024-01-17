@@ -3,8 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Reservation;
+use App\Repositories\Interfaces\ReservationRepositoryInterface;
 
-class ReservationRepository extends BaseRepository
+class ReservationRepository extends BaseRepository implements ReservationRepositoryInterface
 {
     protected array $relations = ['rentalCar', 'user'];
 
@@ -16,10 +17,10 @@ class ReservationRepository extends BaseRepository
     public function add($data): \Illuminate\Database\Eloquent\Model
     {
         return Reservation::create([
-            'user_id' => $data->user_id,
-            'rental_car_id' => $data->rental_car_id,
-            'from' => $data->from,
-            'to' => $data->to
+            'user_id' => $data['user_id'],
+            'rental_car_id' => $data['rental_car_id'],
+            'from' => $data['from'],
+            'to' => $data['to']
         ]);
     }
 
@@ -33,8 +34,8 @@ class ReservationRepository extends BaseRepository
         }
 
         $reservation->update([
-            'from' => $data->from,
-            'to' => $data->to
+            'from' => $data['from'],
+            'to' => $data['to']
         ]);
 
         return $reservation;

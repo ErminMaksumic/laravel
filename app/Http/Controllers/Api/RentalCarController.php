@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RentalCarInsertRequest;
+use App\Http\Requests\RentalCarUpdateRequest;
 use App\Http\Resources\RentalCarResource;
 use App\Models\RentalCar;
-use App\Services\RentalCarService;
+use App\Services\Interfaces\RentalCarServiceInterface;
 use App\Traits\CanLoadRelationships;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RentalCarController extends Controller
@@ -18,39 +20,39 @@ class RentalCarController extends Controller
 
     private array $relations = ['user'];
 
-
-
-    public function __construct(protected RentalCarService $rentalCarService)
+    public function __construct(protected RentalCarServiceInterface $rentalCarService)
     {
         $this->middleware('auth:sanctum')->except(['index', 'show']);
     }
 
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return RentalCarResource::collection($this->rentalCarService->getAll());
     }
 
-    public function store(RentalCarInsertRequest $request) : RentalCarResource
+    public function store(Request $request): RentalCarResource|JsonResponse
     {
-       return RentalCarResource::make($this->rentalCarService->addRentalCar($request));
-   }
-
-    public function show(int $id) : RentalCarResource
-    {
-       return RentalCarResource::make($this->loadRelationships($this->rentalCarService->getById($id), $this->relations));
+        $validatedData = $this->validateRequest($request, RentalCarInsertRequest::class);
+        return RentalCarResource::make($this->rentalCarService->add($validatedData));
     }
 
-    public function update(RentalCarInsertRequest $request, int $id) : JsonResponse | RentalCar | RentalCarResource
+    public function show(int $id): RentalCarResource
     {
-        return RentalCarResource::make($this->rentalCarService->updateRentalCar($request, $id));
+        return RentalCarResource::make($this->loadRelationships($this->rentalCarService->getById($id), $this->relations));
+    }
+
+    public function update(Request $request, int $id): JsonResponse|RentalCar|RentalCarResource
+    {
+        $validatedData = $this->validateRequest($request, RentalCarUpdateRequest::class);
+        return RentalCarResource::make($this->rentalCarService->update($validatedData, $id));
     }
 
     public function destroy(int $id)
     {
-        return $this->rentalCarService->removeRentalCar($id);
+        return $this->rentalCarService->remove($id);
     }
 
-    public function getAllPrices() : int
+    public function getAllPrices(): int
     {
         return $this->rentalCarService->getAllPrices();
     }

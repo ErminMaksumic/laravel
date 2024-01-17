@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RentalCarInsertRequest;
 use App\Http\Requests\ReservationInsertRequest;
+use App\Http\Requests\ReservationUpdateRequest;
 use App\Http\Resources\ReservationResource;
-use App\Services\ReservationService;
+use App\Services\Interfaces\ReservationServiceInterface;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ReservationController extends Controller
 {
-    public function __construct(protected ReservationService $reservationService)
-    { }
+    public function __construct(protected ReservationServiceInterface $reservationService)
+    {
+    }
 
     public function index()
     {
-       return ReservationResource::collection($this->reservationService->getAll());
+        return ReservationResource::collection($this->reservationService->getAll());
     }
 
-    public function store(ReservationInsertRequest $request)
+    public function store(Request $request)
     {
-        return ReservationResource::make($this->reservationService->addRentalCar($request));
+            $validatedData = $this->validateRequest($request, ReservationInsertRequest::class);
+            return ReservationResource::make($this->reservationService->add($validatedData));
     }
 
     public function show(int $id)
@@ -27,13 +33,14 @@ class ReservationController extends Controller
         return ReservationResource::make($this->reservationService->getById($id));
     }
 
-    public function update(ReservationInsertRequest $request, int $id)
+    public function update(Request $request, int $id)
     {
-        return ReservationResource::make($this->reservationService->updateReservation($request, $id));
+            $validatedData = $this->validateRequest($request, ReservationUpdateRequest::class);
+            return ReservationResource::make($this->reservationService->update($validatedData, $id));
     }
 
     public function destroy(int $id)
     {
-        $this->reservationService->removeReservation($id);
+        $this->reservationService->remove($id);
     }
 }
