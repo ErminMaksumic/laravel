@@ -2,20 +2,26 @@
 
 namespace App\Services;
 
+use App\Http\Requests\SearchObjects\ReservationSearchObject;
+use App\Models\Reservation;
 use App\Repositories\ReservationRepository;
 use App\Services\Interfaces\ReservationServiceInterface;
 
 class ReservationService extends BaseService implements ReservationServiceInterface
 {
-    private array $availableSearchParams = ['from', 'to'];
     public function getRepository()
     {
         return app(ReservationRepository::class);
     }
 
-    public function getAllSearch()
+    public function getSearchObject()
     {
-        return parent::getAll($this->availableSearchParams);
+        return ReservationSearchObject::class;
+    }
+
+    protected function getModelClass()
+    {
+        return Reservation::class;
     }
 
 }

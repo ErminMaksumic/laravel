@@ -17,10 +17,9 @@ abstract class BaseController extends Controller
     abstract function getUpdateRequestClass();
     abstract function createResourcePayload($request, $collection = false);
 
-
     public function index()
     {
-        return $this->createResourcePayload($this->service->getAllSearch(), true);
+        return $this->createResourcePayload($this->service->getAll(), true);
     }
 
     public function store(Request $request)

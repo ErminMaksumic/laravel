@@ -2,10 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Interfaces\BaseRepositoryInterface;
 use App\Traits\CanLoadRelationships;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 abstract class BaseRepository
 {
@@ -15,13 +13,10 @@ abstract class BaseRepository
 
     abstract protected function getModelClass(): string;
 
-    public function getAll(array $searchParams = [])
+    public function getAll()
     {
-        $requestParams = request()->all();
-        $filteredSearchParams = array_intersect_key($requestParams, array_flip($searchParams));
         $query = $this->loadRelationships($this->getModelInstance()->query(), $this->relations);
-        return $this->filterQuery($filteredSearchParams, $query)->paginate();
-
+        return $query->get();
     }
 
     public function add($data): Model
@@ -73,14 +68,4 @@ abstract class BaseRepository
         return new $modelClass;
     }
 
-    protected function filterQuery(array $filteredSearchParams, $query) :  Builder
-    {
-        foreach ($filteredSearchParams as $key => $value) {
-            if ($value !== null) {
-                $query->where($key, 'like', '%' . $value . '%');
-            }
-        }
-
-        return $query;
-    }
 }

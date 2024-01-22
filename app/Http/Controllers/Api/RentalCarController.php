@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\RentalCarInsertRequest;
 use App\Http\Requests\RentalCarUpdateRequest;
-use App\Http\Resources\PaymentResource;
 use App\Http\Resources\RentalCarResource;
 use App\Services\Interfaces\RentalCarServiceInterface;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;

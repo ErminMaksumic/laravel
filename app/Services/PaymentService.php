@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Payment;
 use App\Repositories\PaymentRepository;
 use App\Services\Interfaces\PaymentServiceInterface;
 use App\StateMachine\Config\StateConfiguration;
@@ -13,16 +14,9 @@ class PaymentService extends BaseService implements PaymentServiceInterface
     public function __construct()
     { }
 
-    private array $availableSearchParams = [];
-
     public function getRepository()
     {
         return app(PaymentRepository::class);
-    }
-
-    public function getAllSearch()
-    {
-        return parent::getAll($this->availableSearchParams);
     }
 
     public function add(array $request)
@@ -39,5 +33,10 @@ class PaymentService extends BaseService implements PaymentServiceInterface
         $state = BaseState::CreateState($payment->status, $this);
 
         return $state->update($request, $id);
+    }
+
+    protected function getModelClass()
+    {
+        return Payment::class;
     }
 }

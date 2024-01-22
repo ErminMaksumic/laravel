@@ -2,19 +2,29 @@
 
 namespace App\Services;
 
+use App\Http\Requests\SearchObjects\BaseSearchObject;
 use App\Services\Interfaces\BaseServiceInterface;
 
 abstract class BaseService implements BaseServiceInterface
 {
+    abstract protected function getModelClass();
+
+
     protected function handleDeleteResponse()
     {
         return response(content: "Resource removed successfully", status: 204);
     }
 
-    public function getAll(array $searchParams)
+    public function getAll()
     {
-        return $this->getRepository()->getAll($searchParams);
+        $searchObjectClass = $this->getSearchObject();
+        $searchObjectInstance = app($searchObjectClass);
+
+        $params = array_merge($searchObjectInstance->toArray(), request()->query());
+        $searchObjectInstance->fill($params);
+        return $this->addFilter($searchObjectInstance);
     }
+
 
     public function getById(int $id)
     {
@@ -36,4 +46,14 @@ abstract class BaseService implements BaseServiceInterface
         $this->getRepository()->delete($id);
         return $this->handleDeleteResponse();
     }
+
+    public function addFilter($searchObject){
+        return $this->getRepository()->getAll();
+    }
+
+    public function getSearchObject()
+    {
+        return BaseSearchObject::class;
+    }
+
 }

@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use App\Http\Requests\SearchObjects\RentalCarSearchObject;
+use App\Models\RentalCar;
 use App\Repositories\RentalCarRepository;
 use App\Services\Interfaces\RentalCarServiceInterface;
 
 class RentalCarService extends BaseService implements RentalCarServiceInterface
 {
-    private array $availableSearchParams = ['name', 'price'];
 
     public function getRepository()
     {
@@ -19,8 +20,27 @@ class RentalCarService extends BaseService implements RentalCarServiceInterface
         return $this->getRepository()->getAllPrices();
     }
 
-    public function getAllSearch()
+    public function addFilter($searchObject){
+        $rentalCars = $this->getRepository()->getAll();
+
+        if ($searchObject->name) {
+            $rentalCars = $rentalCars->where('name', $searchObject->name);
+        }
+
+        if ($searchObject->price) {
+            $rentalCars = $rentalCars->where('price', $searchObject->price);
+        }
+
+        return $rentalCars;
+    }
+
+    public function getSearchObject()
     {
-        return parent::getAll($this->availableSearchParams);
+        return RentalCarSearchObject::class;
+    }
+
+    protected function getModelClass()
+    {
+        return RentalCarSearchObject::class;
     }
 }
