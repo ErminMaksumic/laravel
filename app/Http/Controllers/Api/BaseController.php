@@ -5,19 +5,22 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 abstract class BaseController extends Controller
 {
     public function __construct(protected $service)
-    { }
+    {
+        $this->middleware('auth:sanctum')->except(['index']);
+    }
 
     abstract function getInsertRequestClass();
     abstract function getUpdateRequestClass();
+    abstract function createResourcePayload($request, $collection = false);
 
-    public function index(): LengthAwarePaginator
+
+    public function index()
     {
-        return $this->service->getAllSearch();
+        return $this->createResourcePayload($this->service->getAllSearch(), true);
     }
 
     public function store(Request $request)
@@ -45,12 +48,6 @@ abstract class BaseController extends Controller
         return response()->json([
             'errors' => $errorArray,
         ], 422);
-    }
-
-
-    public function createResourcePayload($request)
-    {
-        return AnonymousResourceCollection::collection($request);
     }
 
     public function show(int $id)

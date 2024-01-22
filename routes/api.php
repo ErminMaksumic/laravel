@@ -28,3 +28,6 @@ Route::get('rentalCar/prices', [RentalCarController::class, 'getAllPrices']);
 Route::apiResource('rentalCar', RentalCarController::class);
 Route::apiResource('reservation', ReservationController::class);
 Route::apiResource('payment', PaymentController::class);
+
+Route::get('/payment/{id}/allowedActions', [PaymentController::class, 'allowedActions'])->name('payment.allowedActions');
+Route::put('/payment/{containerId}/changeState/{statusId}', [PaymentController::class, 'changeState'])->name('payment.changeState');

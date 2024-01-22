@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Repositories\Interfaces\RentalCarRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class RentalCarRepository extends BaseRepository implements RentalCarRepositoryInterface
+class RentalCarRepository extends BaseRepository
 {
     protected array $relations = ['user'];
 

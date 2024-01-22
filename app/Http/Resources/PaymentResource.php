@@ -20,7 +20,8 @@ class PaymentResource extends JsonResource
             'amount' => $this->amount,
             'status' => $this->status,
             'reservation_id' => $this->reservation_id,
-            'reservation' => $reservation instanceof Reservation ? new Reservation($reservation) : null,
-        ];
+            'reservation' => $this->whenLoaded('reservation', function () {
+                return new Reservation($this->reservation->toArray());
+            }),        ];
     }
 }

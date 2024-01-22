@@ -6,6 +6,7 @@ use App\Http\Requests\ReservationInsertRequest;
 use App\Http\Requests\ReservationUpdateRequest;
 use App\Http\Resources\ReservationResource;
 use App\Services\Interfaces\ReservationServiceInterface;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ReservationController extends BaseController
 {
@@ -25,8 +26,13 @@ class ReservationController extends BaseController
         return ReservationUpdateRequest::class;
     }
 
-    public function createResourcePayload($request)
+    public function createResourcePayload($request, $collection = false) : ReservationResource | AnonymousResourceCollection
     {
+        if($collection)
+        {
+            return ReservationResource::collection($request);
+        }
+
         return new ReservationResource($request);
     }
 }

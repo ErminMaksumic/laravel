@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Reservation;
 use App\Repositories\Interfaces\ReservationRepositoryInterface;
 
-class ReservationRepository extends BaseRepository implements ReservationRepositoryInterface
+class ReservationRepository extends BaseRepository
 {
     protected array $relations = ['rentalCar', 'user', 'payment'];
 

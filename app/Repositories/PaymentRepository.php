@@ -7,7 +7,7 @@ use App\Models\Reservation;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentRepository extends BaseRepository implements PaymentRepositoryInterface
+class PaymentRepository extends BaseRepository
 {
     protected array $relations = ['user', 'reservation', 'reservation.user'];
 

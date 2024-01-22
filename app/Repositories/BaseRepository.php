@@ -6,9 +6,8 @@ use App\Repositories\Interfaces\BaseRepositoryInterface;
 use App\Traits\CanLoadRelationships;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 
-abstract class BaseRepository implements BaseRepositoryInterface
+abstract class BaseRepository
 {
     use CanLoadRelationships;
 
@@ -16,7 +15,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     abstract protected function getModelClass(): string;
 
-    public function getAll(array $searchParams = []): LengthAwarePaginator
+    public function getAll(array $searchParams = [])
     {
         $requestParams = request()->all();
         $filteredSearchParams = array_intersect_key($requestParams, array_flip($searchParams));
