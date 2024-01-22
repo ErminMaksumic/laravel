@@ -15,7 +15,7 @@ abstract class BaseRepository
 
     public function getAll()
     {
-        $query = $this->loadRelationships($this->getModelInstance()->query(), $this->relations);
+        $query = $this->getModelInstance()->query();
         return $query->get();
     }
 

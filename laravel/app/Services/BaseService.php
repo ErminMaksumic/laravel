@@ -22,7 +22,9 @@ abstract class BaseService implements BaseServiceInterface
 
         $params = array_merge($searchObjectInstance->toArray(), request()->query());
         $searchObjectInstance->fill($params);
-        return $this->addFilter($searchObjectInstance);
+
+        $includedItems = $this->includeRelation($searchObjectInstance);
+        return $this->addFilter($searchObjectInstance, $includedItems);
     }
 
 
@@ -47,13 +49,18 @@ abstract class BaseService implements BaseServiceInterface
         return $this->handleDeleteResponse();
     }
 
-    public function addFilter($searchObject){
+    public function addFilter($searchObject, $included){
         return $this->getRepository()->getAll();
     }
 
     public function getSearchObject()
     {
         return BaseSearchObject::class;
+    }
+
+    public function includeRelation($searchObject)
+    {
+        return [];
     }
 
 }

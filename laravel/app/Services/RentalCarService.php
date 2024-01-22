@@ -20,15 +20,24 @@ class RentalCarService extends BaseService implements RentalCarServiceInterface
         return $this->getRepository()->getAllPrices();
     }
 
-    public function addFilter($searchObject){
-        $rentalCars = $this->getRepository()->getAll();
+    public function addFilter($searchObject, $included){
 
         if ($searchObject->name) {
-            $rentalCars = $rentalCars->where('name', $searchObject->name);
+            $included = $included->where('name', $searchObject->name);
         }
 
         if ($searchObject->price) {
-            $rentalCars = $rentalCars->where('price', $searchObject->price);
+            $included = $included->where('price', $searchObject->price);
+        }
+
+        return $included;
+    }
+
+    public function includeRelation($searchObject){
+        $rentalCars = $this->getRepository()->getAll();
+
+        if ($searchObject->includeUser) {
+            $rentalCars = $rentalCars->load('user');
         }
 
         return $rentalCars;
