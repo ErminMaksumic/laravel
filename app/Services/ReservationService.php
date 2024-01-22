@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\Interfaces\ReservationRepositoryInterface;
+use App\Repositories\ReservationRepository;
 use App\Services\Interfaces\ReservationServiceInterface;
 
 class ReservationService extends BaseService implements ReservationServiceInterface
@@ -10,7 +10,7 @@ class ReservationService extends BaseService implements ReservationServiceInterf
     private array $availableSearchParams = ['from', 'to'];
     public function getRepository()
     {
-        return app(ReservationRepositoryInterface::class);
+        return app(ReservationRepository::class);
     }
 
     public function getAllSearch()

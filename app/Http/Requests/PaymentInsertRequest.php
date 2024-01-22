@@ -23,8 +23,7 @@ class PaymentInsertRequest extends FormRequest
     {
         return [
             'reservation_id' => 'required|int',
-            'amount' => 'required|numeric',
-            'status' => 'required|string'
+            'amount' => 'required|numeric'
         ];
     }
 }

@@ -17,6 +17,7 @@ class PaymentResource extends JsonResource
         $reservation = $this->whenLoaded('reservation');
 
         return [
+            'id' => $this->id,
             'amount' => $this->amount,
             'status' => $this->status,
             'reservation_id' => $this->reservation_id,

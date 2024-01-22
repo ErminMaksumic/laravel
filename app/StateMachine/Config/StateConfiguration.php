@@ -2,9 +2,10 @@
 
 namespace App\StateMachine\Config;
 
+use App\Services\Interfaces\PaymentServiceInterface;
 use App\StateMachine\Enums\PaymentStatus;
 use App\StateMachine\States\ApprovedState;
-use App\StateMachine\States\CanceledState;
+use App\StateMachine\States\BaseState;
 use App\StateMachine\States\ProcessingState;
 use App\StateMachine\States\RejectedState;
 
@@ -16,13 +17,11 @@ class StateConfiguration
     private $rejectedState;
 
     public function __construct(
-        ApprovedState $approvedState,
+        ApprovedState   $approvedState,
         ProcessingState $processingState,
-        CanceledState $canceledState,
-        RejectedState $rejectedState
+        RejectedState   $rejectedState,
     ) {
         $this->approvedState = $approvedState;
-        $this->canceledState = $canceledState;
         $this->processingState = $processingState;
         $this->rejectedState = $rejectedState;
     }

@@ -40,6 +40,7 @@ class PaymentRepository extends BaseRepository
 
         $payment->update([
             'status' => $data['status'],
+            'amount' => $data['amount']
         ]);
 
         return $payment;

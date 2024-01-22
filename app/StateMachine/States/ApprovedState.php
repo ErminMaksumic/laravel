@@ -2,7 +2,7 @@
 
 namespace App\StateMachine\States;
 
-class ApprovedState
+class ApprovedState extends BaseState
 {
     public function allowedActions()
     {
