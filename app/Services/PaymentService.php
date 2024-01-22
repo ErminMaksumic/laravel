@@ -9,12 +9,9 @@ use App\StateMachine\States\BaseState;
 
 class PaymentService extends BaseService implements PaymentServiceInterface
 {
-    private $stateConfiguration;
 
-    public function __construct(StateConfiguration $stateConfiguration)
-    {
-        $this->stateConfiguration = $stateConfiguration;
-    }
+    public function __construct()
+    { }
 
     private array $availableSearchParams = [];
 
@@ -38,8 +35,6 @@ class PaymentService extends BaseService implements PaymentServiceInterface
     public function update(array $request, int $id)
     {
         $payment = $this->getById($id);
-
-        $state = $this->stateConfiguration->stateMap()[$payment->status];
 
         $state = BaseState::CreateState($payment->status, $this);
 

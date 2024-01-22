@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class ErrorFilter extends Exception
+class CustomException extends Exception
 {
     public function render($request)
     {

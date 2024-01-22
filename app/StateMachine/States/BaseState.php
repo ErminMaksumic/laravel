@@ -2,21 +2,18 @@
 
 namespace App\StateMachine\States;
 
-use App\Exceptions\ErrorFilter;
-use App\Services\Interfaces\PaymentServiceInterface;
-use App\Services\PaymentService;
-use Exception;
+use App\Exceptions\CustomException;
 
 class BaseState
 {
     public function store($request)
     {
-        throw new ErrorFilter("Not allowed");
+        throw new CustomException("Not allowed");
     }
 
     public function update($request, int $id)
     {
-        throw new ErrorFilter("Not allowed");
+        throw new CustomException("Not allowed");
     }
 
     static function CreateState($stateName)
@@ -29,7 +26,7 @@ class BaseState
             case ('REJECTED'):
                 return new RejectedState();
             default:
-                throw new Exception("Action not allowed!");
+                throw new CustomException("Action not allowed!");
         }
     }
 }
