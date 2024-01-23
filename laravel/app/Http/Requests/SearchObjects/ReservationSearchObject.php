@@ -21,6 +21,7 @@ class ReservationSearchObject extends BaseSearchObject
 
     public function fill(array $attributes)
     {
+        parent::fill($attributes);
         $this->from = $attributes['from'] ?? null;
         $this->to = $attributes['to'] ?? null;
         $this->includeRentalCar = $attributes['includeRentalCar'] ?? null;

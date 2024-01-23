@@ -18,6 +18,7 @@ class RentalCarSearchObject extends BaseSearchObject
 
     public function fill(array $attributes)
     {
+        parent::fill($attributes);
         $this->name = $attributes['name'] ?? null;
         $this->price = $attributes['price'] ?? null;
         $this->includeUser = $attributes['includeUser'] ?? null;

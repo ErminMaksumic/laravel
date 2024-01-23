@@ -13,11 +13,27 @@ class RentalCarResource extends JsonResource
      */
     public function toArray($request): array
     {
-       return [
-           'id' => $this->id,
-           'name' => $this->name,
-           'price' => $this->price,
-           'user' => new UserResource($this->whenLoaded('user')),
-       ];
+        return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'price' => $this->price,
+                'user' => new UserResource($this->whenLoaded('user')),
+        ];
     }
+
+    /**
+     * Add pagination information to the resource.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array<string, mixed>
+     */
+    public function with($request): array
+    {
+        return [
+            'meta' => [
+                'count' => $this->collection->count(), // Dodajte ovdje broj rezultata
+            ],
+        ];
+    }
+
 }
