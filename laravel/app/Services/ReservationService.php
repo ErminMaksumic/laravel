@@ -24,35 +24,34 @@ class ReservationService extends BaseService implements ReservationServiceInterf
         return Reservation::class;
     }
 
-    public function addFilter($searchObject, $included){
+    public function addFilter($searchObject, $query){
 
         if ($searchObject->from) {
-            $included = $included->where('from', $searchObject->from);
+            $query = $query->where('from', $searchObject->from);
         }
 
         if ($searchObject->to) {
-            $included = $included->where('to', $searchObject->to);
+            $query = $query->where('to', $searchObject->to);
         }
 
-        return $included;
+        return $query;
     }
 
-    public function includeRelation($searchObject){
-        $rentalCars = $this->getRepository()->getAll();
+    public function includeRelation($searchObject, $query){
 
         if ($searchObject->includeUser) {
-            $rentalCars = $rentalCars->load('user');
+            $query = $query->with('user');
         }
 
         if ($searchObject->includeRentalCar) {
-            $rentalCars = $rentalCars->load('rentalCar');
+            $query = $query->with('rentalCar');
         }
 
         if ($searchObject->includePayment) {
-            $rentalCars = $rentalCars->load('payment');
+            $query = $query->with('payment');
         }
 
-        return $rentalCars;
+        return $query;
     }
 
 }

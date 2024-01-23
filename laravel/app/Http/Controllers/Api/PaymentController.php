@@ -42,9 +42,9 @@ class PaymentController extends BaseController
         return $this->containerStateMachineService->allowedActions($id);
     }
 
-//    public function changeState(int $paymentId, int $statusId)
-//    {
-//        return PaymentResource::make($this->containerStateMachineService->changeState($paymentId, $statusId));
-//    }
+    public function changeState(int $paymentId, int $statusId)
+    {
+        return PaymentResource::make($this->containerStateMachineService->changeState($paymentId, $statusId));
+    }
 
 }

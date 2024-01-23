@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Ramsey\Collection\Collection;
 
 abstract class BaseController extends Controller
 {
@@ -19,7 +20,12 @@ abstract class BaseController extends Controller
 
     public function index()
     {
-        return $this->createResourcePayload($this->service->getAll(), true);
+        $result = $this->service->getAll();
+
+        return response()->json([
+            'result' => $this->createResourcePayload($result, true),
+            'count' => $result->count()
+        ]);
     }
 
     public function store(Request $request)
