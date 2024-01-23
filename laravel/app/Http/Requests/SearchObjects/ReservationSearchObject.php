@@ -28,12 +28,4 @@ class ReservationSearchObject extends BaseSearchObject
         $this->includeUser = $attributes['includeUser'] ?? null;
         $this->includePayment = $attributes['includePayment'] ?? null;
     }
-
-    public function toArray()
-    {
-        return [
-            'from' => $this->from,
-            'to' => $this->to,
-        ];
-    }
 }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\SearchObjects\BaseSearchObject;
+use App\Models\RentalCar;
 use App\Services\Interfaces\BaseServiceInterface;
 
 abstract class BaseService implements BaseServiceInterface
@@ -21,14 +22,11 @@ abstract class BaseService implements BaseServiceInterface
 
         $query = app($this->getModelClass())->query();
 
-        $params = array_merge($searchObjectInstance->toArray(), request()->query());
-        $searchObjectInstance->fill($params);
-
+        $searchObjectInstance->fill(request()->query());
 
         if ($searchObjectInstance->page && $searchObjectInstance->size) {
             $query->skip(($searchObjectInstance->page - 1) * $searchObjectInstance->size)->take($searchObjectInstance->size);
         }
-
 
         $query = $this->includeRelation($searchObjectInstance, $query);
         $query = $this->addFilter($searchObjectInstance, $query);

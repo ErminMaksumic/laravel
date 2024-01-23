@@ -11,9 +11,7 @@ class RentalCarSearchObject extends BaseSearchObject
 
     public function __construct(array $attributes)
     {
-        $this->name = $attributes['name'] ?? null;
-        $this->price = $attributes['price'] ?? null;
-        $this->includeUser = $attributes['includeUser'] ?? null;
+       $this->fill($attributes);
     }
 
     public function fill(array $attributes)
@@ -22,14 +20,5 @@ class RentalCarSearchObject extends BaseSearchObject
         $this->name = $attributes['name'] ?? null;
         $this->price = $attributes['price'] ?? null;
         $this->includeUser = $attributes['includeUser'] ?? null;
-    }
-
-    public function toArray()
-    {
-        return [
-            'name' => $this->name,
-            'price' => $this->price,
-            'includeUser' => $this->includeUser
-        ];
     }
 }

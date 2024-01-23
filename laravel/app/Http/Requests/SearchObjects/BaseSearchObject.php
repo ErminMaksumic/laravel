@@ -9,8 +9,7 @@ class BaseSearchObject
 
     public function __construct(array $attributes)
     {
-        $this->page = $attributes['page'] ?? null;
-        $this->size = $attributes['size'] ?? null;
+        $this->fill($attributes);
     }
 
     public function fill(array $attributes)
