@@ -2,20 +2,25 @@
 
 namespace App\StateMachine;
 
+use App\Exceptions\CustomExceptionHandler;
 use App\Models\Payment;
+use App\Services\Interfaces\PaymentServiceInterface;
 use App\StateMachine\Config\StateConfiguration;
 use App\StateMachine\Enums\PaymentStatus;
+use Exception;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class PaymentStateMahineService
 {
 
-    public function __construct(protected StateConfiguration $stateConfiguration)
+    public function __construct(protected StateConfiguration $stateConfiguration, protected PaymentServiceInterface $paymentService)
     { }
     public function allowedActions(int $id)
     {
         $payment = Payment::query()->find($id);
         if (!$payment) {
-            abort(404, 'Payment not found');
+            throw new Exception("Payment not found");
         }
 
         $status = PaymentStatus::from($payment->status);
@@ -25,36 +30,34 @@ class PaymentStateMahineService
         }
 
         $state = $this->stateConfiguration->stateMap()[$status->name];
-        $allowedActions = $state->allowedActions();
-
-        return response()->json(['result' => $allowedActions]);
+        return $state->allowedActions();
     }
 
-    public function changeState(int $containerId, int $statusId)
+
+    public function updatePayment(PaymentStatus $paymentStatus, int $paymentId)
     {
-        $payment = Payment::query()->find($containerId);
-        if (!$payment) {
-            abort(404, 'Container not found');
-        }
-
-        $status = PaymentStatus::from($payment->status);
-
-        if ($status === null) {
-            return response()->json(['error' => 'Invalid status'], 400);
-        }
-
-        $state = $this->stateConfiguration->stateMap()[$status->name];
-        $allowedActions = $state->allowedActions();
-        $collection = collect($allowedActions);
-
-        if ($collection->contains('value', $statusId)) {
-            $payment->update([
-                'status' => $statusId
-            ]);
+        $payment = $this->paymentService->getById($paymentId);
+        $collection = collect($this->allowedActions($paymentId));
+        if ($collection->contains('value', $paymentStatus->value)) {
+            $payment = $this->paymentService->update(['status' => $paymentStatus], $paymentId);
         } else {
-            abort(405, 'Update status not allowed!');
+            throw new Exception("Status update not allowed!");
         }
 
         return $payment;
+    }
+
+    public function paymentProcess(int $paymentId)
+    {
+       return  $this->updatePayment(PaymentStatus::PROCESSING, $paymentId);
+    }
+
+    public function paymentApprove(int $paymentId)
+    {
+        return  $this->updatePayment(PaymentStatus::APPROVED, $paymentId);
+    }
+    public function paymentReject(int $paymentId)
+    {
+        return  $this->updatePayment(PaymentStatus::REJECTED, $paymentId);
     }
 }

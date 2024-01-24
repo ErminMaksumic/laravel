@@ -2,18 +2,18 @@
 
 namespace App\StateMachine\States;
 
-use App\Exceptions\CustomException;
+use Exception;
 
 class BaseState
 {
     public function store($request)
     {
-        throw new CustomException("Not allowed");
+        throw new Exception("Not allowed");
     }
 
     public function update($request, int $id)
     {
-        throw new CustomException("Not allowed");
+        throw new Exception("Not allowed");
     }
 
     static function CreateState($stateName)
@@ -26,7 +26,7 @@ class BaseState
             case ('REJECTED'):
                 return new RejectedState();
             default:
-                throw new CustomException("Action not allowed!");
+                throw new Exception("Action not allowed!");
         }
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Http\Requests\SearchObjects\BaseSearchObject;
-use App\Models\RentalCar;
 use App\Services\Interfaces\BaseServiceInterface;
 
 abstract class BaseService implements BaseServiceInterface

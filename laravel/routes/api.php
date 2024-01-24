@@ -30,4 +30,6 @@ Route::apiResource('reservation', ReservationController::class);
 Route::apiResource('payment', PaymentController::class);
 
 Route::get('/payment/{id}/allowedActions', [PaymentController::class, 'allowedActions'])->name('payment.allowedActions');
-Route::put('/payment/{containerId}/changeState/{statusId}', [PaymentController::class, 'changeState'])->name('payment.changeState');
+Route::put('/payment/{id}/paymentProcess', [PaymentController::class, 'paymentProcess'])->name('payment.paymentProcess');
+Route::put('/payment/{id}/paymentApprove', [PaymentController::class, 'paymentApprove'])->name('payment.paymentApprove');
+Route::put('/payment/{id}/paymentReject', [PaymentController::class, 'paymentReject'])->name('payment.paymentReject');

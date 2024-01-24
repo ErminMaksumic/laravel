@@ -12,7 +12,9 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PaymentController extends BaseController
 {
-    public function __construct(PaymentServiceInterface $paymentService, protected PaymentStateMahineService $containerStateMachineService)
+    public function __construct(protected PaymentServiceInterface $paymentService,
+                                protected PaymentStateMahineService $containerStateMachineService,
+                                protected PaymentStateMahineService $paymentStateMachineService)
     {
         parent::__construct($paymentService);
     }
@@ -42,9 +44,20 @@ class PaymentController extends BaseController
         return $this->containerStateMachineService->allowedActions($id);
     }
 
-    public function changeState(int $paymentId, int $statusId)
+    public function paymentProcess(int $orderId)
     {
-        return PaymentResource::make($this->containerStateMachineService->changeState($paymentId, $statusId));
+        return PaymentResource::make($this->paymentStateMachineService->paymentProcess($orderId));
     }
+
+    public function paymentApprove(int $orderId)
+    {
+        return PaymentResource::make($this->paymentStateMachineService->paymentApprove($orderId));
+    }
+
+    public function paymentReject(int $orderId)
+    {
+        return PaymentResource::make($this->paymentStateMachineService->paymentReject($orderId));
+    }
+
 
 }

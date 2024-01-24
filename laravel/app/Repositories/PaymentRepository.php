@@ -39,8 +39,8 @@ class PaymentRepository extends BaseRepository
         }
 
         $payment->update([
-            'status' => $data['status'],
-            'amount' => $data['amount']
+            'status' => $data['status']->value,
+            'amount' => $data['amount'] ?? $payment->amount
         ]);
 
         return $payment;

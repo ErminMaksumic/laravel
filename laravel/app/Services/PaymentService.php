@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Payment;
 use App\Repositories\PaymentRepository;
 use App\Services\Interfaces\PaymentServiceInterface;
-use App\StateMachine\Config\StateConfiguration;
 use App\StateMachine\States\BaseState;
 
 class PaymentService extends BaseService implements PaymentServiceInterface
@@ -21,7 +20,7 @@ class PaymentService extends BaseService implements PaymentServiceInterface
 
     public function add(array $request)
     {
-        $state = BaseState::CreateState('PROCESSING', $this);
+        $state = BaseState::CreateState('PROCESSING');
 
         return $state->store($request);
     }
@@ -30,7 +29,7 @@ class PaymentService extends BaseService implements PaymentServiceInterface
     {
         $payment = $this->getById($id);
 
-        $state = BaseState::CreateState($payment->status, $this);
+        $state = BaseState::CreateState($payment->status);
 
         return $state->update($request, $id);
     }

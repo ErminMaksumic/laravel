@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Exceptions\CustomExceptionHandler;
 use App\Http\Requests\SearchObjects\BaseSearchObject;
 use App\Http\Requests\SearchObjects\RentalCarSearchObject;
 use App\Http\Requests\SearchObjects\ReservationSearchObject;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // search objects
+
         $this->app->bind(RentalCarSearchObject::class, function ($app, $parameters) {
             return new RentalCarSearchObject($parameters);
         });
@@ -23,6 +27,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BaseSearchObject::class, function ($app, $parameters) {
             return new BaseSearchObject($parameters);
         });
+
+        // exception handler
+
+        $this->app->singleton(
+            ExceptionHandler::class,
+            CustomExceptionHandler::class
+        );
     }
 
     /**

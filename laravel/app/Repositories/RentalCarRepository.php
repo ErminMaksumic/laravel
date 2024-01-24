@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\RentalCar;
 use App\Models\User;
-use App\Repositories\Interfaces\RentalCarRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class RentalCarRepository extends BaseRepository
@@ -37,7 +36,7 @@ class RentalCarRepository extends BaseRepository
 
         $rentalCar->update([
             'name' => $data['name'],
-            'price' => $data['price']
+            'price' => $data['price'] ?? $rentalCar->price
         ]);
 
         return $rentalCar;
