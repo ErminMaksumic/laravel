@@ -14,8 +14,8 @@ class BaseSearchObject
 
     public function fill(array $attributes)
     {
-        $this->page = $attributes['page'] ?? null;
-        $this->size = $attributes['size'] ?? null;
+        $this->page = $attributes['page'] ?? 1;
+        $this->size = $attributes['size'] ?? 10;
     }
 
     public function toArray()
