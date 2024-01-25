@@ -5,9 +5,9 @@ namespace App\Http\Requests\SearchObjects;
 class RentalCarSearchObject extends BaseSearchObject
 {
 
-    public ?string $name;
-    public ?float $price;
-    public ?bool $includeUser;
+    public ?string $name = null;
+    public ?float $price = null;
+    public ?bool $includeUser = null;
 
     public function __construct(array $attributes)
     {

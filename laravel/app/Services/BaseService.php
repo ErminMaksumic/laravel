@@ -22,14 +22,15 @@ abstract class BaseService implements BaseServiceInterface
 
         $query = app($this->getModelClass())->query();
 
-        if ($searchObjectInstance->page && $searchObjectInstance->size) {
-            $query->skip(($searchObjectInstance->page - 1) * $searchObjectInstance->size)->take($searchObjectInstance->size);
-        }
+//        if ($searchObjectInstance->page && $searchObjectInstance->size) {
+//            $query->skip(($searchObjectInstance->page - 1) * $searchObjectInstance->size)->take($searchObjectInstance->size);
+//        }
 
         $query = $this->includeRelation($searchObjectInstance, $query);
         $query = $this->addFilter($searchObjectInstance, $query);
 
-        return $query->get();
+//        return $query->get();
+        return $query->paginate($searchObjectInstance->size);
     }
 
 

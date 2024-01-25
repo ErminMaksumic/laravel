@@ -20,12 +20,15 @@ abstract class BaseController extends Controller
 
     public function index()
     {
-        $result = $this->service->getAll();
 
-        return response()->json([
-            'result' => $this->createResourcePayload($result, true),
-            'count' => $result->count()
-        ]);
+        return $this->service->getAll();
+
+
+//        $result = $this->service->getAll();
+//        return response()->json([
+//            'result' => $this->createResourcePayload($result, true),
+//            'count' => $result->count()
+//        ]);
     }
 
     public function store(Request $request)
