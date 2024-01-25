@@ -18,10 +18,9 @@ abstract class BaseService implements BaseServiceInterface
     public function getAll()
     {
         $searchObjectInstance = app($this->getSearchObject());
+        $searchObjectInstance->fill(request()->query());
 
         $query = app($this->getModelClass())->query();
-
-        $searchObjectInstance->fill(request()->query());
 
         if ($searchObjectInstance->page && $searchObjectInstance->size) {
             $query->skip(($searchObjectInstance->page - 1) * $searchObjectInstance->size)->take($searchObjectInstance->size);
@@ -36,7 +35,18 @@ abstract class BaseService implements BaseServiceInterface
 
     public function getById(int $id)
     {
-        return $this->getRepository()->getById($id);
+        $query = app($this->getModelClass())->query();
+        $query->where('id', $id);
+
+        $searchObjectInstance = app($this->getSearchObject());
+        $query = app($this->getModelClass())->query();
+
+        $searchObjectInstance->fill(request()->query());
+        $query = $this->includeRelation($searchObjectInstance, $query);
+        $query = $this->addFilter($searchObjectInstance, $query);
+
+        return $query->first();
+
     }
 
     public function add(array $request)
@@ -56,7 +66,7 @@ abstract class BaseService implements BaseServiceInterface
     }
 
     public function addFilter($searchObject, $query){
-        return $this->getRepository()->getAll();
+        return $query;
     }
 
     public function getSearchObject()
@@ -66,7 +76,7 @@ abstract class BaseService implements BaseServiceInterface
 
     public function includeRelation($searchObject, $query)
     {
-        return [];
+        return $query;
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\SearchObjects\PaymentSearchObject;
 use App\Models\Payment;
 use App\Repositories\PaymentRepository;
 use App\Services\Interfaces\PaymentServiceInterface;
@@ -37,5 +38,19 @@ class PaymentService extends BaseService implements PaymentServiceInterface
     protected function getModelClass()
     {
         return Payment::class;
+    }
+
+    public function includeRelation($searchObject, $query){
+
+        if ($searchObject->includeReservation) {
+            $query = $query->with('reservation');
+        }
+
+        return $query;
+    }
+
+    public function getSearchObject()
+    {
+        return PaymentSearchObject::class;
     }
 }

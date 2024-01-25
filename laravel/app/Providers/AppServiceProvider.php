@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Exceptions\CustomExceptionHandler;
 use App\Http\Requests\SearchObjects\BaseSearchObject;
+use App\Http\Requests\SearchObjects\PaymentSearchObject;
 use App\Http\Requests\SearchObjects\RentalCarSearchObject;
 use App\Http\Requests\SearchObjects\ReservationSearchObject;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(ReservationSearchObject::class, function ($app, $parameters) {
             return new ReservationSearchObject($parameters);
+        });
+        $this->app->bind(PaymentSearchObject::class, function ($app, $parameters) {
+            return new PaymentSearchObject($parameters);
         });
         $this->app->bind(BaseSearchObject::class, function ($app, $parameters) {
             return new BaseSearchObject($parameters);

@@ -22,6 +22,7 @@ class ProcessingState extends BaseState
     {
         return $this->paymentRepository->update($id, $request);
     }
+
     public function allowedActions()
     {
         return [
