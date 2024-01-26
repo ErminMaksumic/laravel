@@ -15,7 +15,7 @@ abstract class BaseService implements BaseServiceInterface
         return response(content: "Resource removed successfully", status: 204);
     }
 
-    public function getAll()
+  public function getAll()
     {
         $searchObjectInstance = app($this->getSearchObject());
         $searchObjectInstance->fill(request()->query());
