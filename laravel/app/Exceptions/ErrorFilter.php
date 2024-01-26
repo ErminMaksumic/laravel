@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-class CustomExceptionHandler extends ExceptionHandler
+class ErrorFilter extends ExceptionHandler
 {
     public function render($request, Exception|\Throwable $exception)
     {

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Exceptions\CustomExceptionHandler;
+use App\Exceptions\ErrorFilter;
 use App\Http\Requests\SearchObjects\BaseSearchObject;
 use App\Http\Requests\SearchObjects\PaymentSearchObject;
 use App\Http\Requests\SearchObjects\RentalCarSearchObject;
@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(
             ExceptionHandler::class,
-            CustomExceptionHandler::class
+            ErrorFilter::class
         );
     }
 

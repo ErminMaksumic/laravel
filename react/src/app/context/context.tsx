@@ -1,5 +1,6 @@
 'use client';
 
+import { getPayments } from '@/lib/api';
 import {
   Dispatch,
   ReactNode,
@@ -29,15 +30,15 @@ export const DataProvider: React.FC<DataProviderProps> = (props) => {
   }, []);
 
   const getData = async () => {
-    console.log('fetching');
-    const res = await fetch('http://127.0.0.1:8000/api/payment');
+    const res = await getPayments();
     const resJson = await res.json();
-    setData(resJson.result);
+    setData(resJson.data);
   };
 
   const values = {
     data,
     setData,
+    getData
   };
 
   return (

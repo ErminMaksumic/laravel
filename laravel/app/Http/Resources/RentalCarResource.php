@@ -27,13 +27,13 @@ class RentalCarResource extends JsonResource
      * @param \Illuminate\Http\Request $request
      * @return array<string, mixed>
      */
-    public function with($request): array
-    {
-        return [
-            'meta' => [
-                'count' => $this->collection->count(), // Dodajte ovdje broj rezultata
-            ],
-        ];
-    }
+//    public function with($request): array
+//    {
+//        return [
+//            'meta' => [
+//                'count' => $this->collection->count(),
+//            ],
+//        ];
+//    }
 
 }

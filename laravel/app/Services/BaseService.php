@@ -36,9 +36,6 @@ abstract class BaseService implements BaseServiceInterface
 
     public function getById(int $id)
     {
-        $query = app($this->getModelClass())->query();
-        $query->where('id', $id);
-
         $searchObjectInstance = app($this->getSearchObject());
         $query = app($this->getModelClass())->query();
 
@@ -46,7 +43,7 @@ abstract class BaseService implements BaseServiceInterface
         $query = $this->includeRelation($searchObjectInstance, $query);
         $query = $this->addFilter($searchObjectInstance, $query);
 
-        return $query->first();
+        return $query->find($id);
 
     }
 

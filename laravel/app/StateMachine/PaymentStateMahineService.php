@@ -2,7 +2,7 @@
 
 namespace App\StateMachine;
 
-use App\Exceptions\CustomExceptionHandler;
+use App\Exceptions\ErrorFilter;
 use App\Models\Payment;
 use App\Services\Interfaces\PaymentServiceInterface;
 use App\StateMachine\Config\StateConfiguration;

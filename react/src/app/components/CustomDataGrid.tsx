@@ -5,11 +5,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useDataContext } from '@/app/context/context';
 import { v4 as uuidv4 } from 'uuid';
 
-export function CustomDataGrid({ params, updateOrderStatus }: any) {
+export function CustomDataGrid({ params }: any) {
   const { data } = useDataContext();
-
-  console.log('params', params);
-  console.log('data', data);
 
   return (
     <div style={{ height: '100%', width: '100%', background: 'white' }}>
